@@ -1,5 +1,5 @@
 # SwiftGtkListBoxDNDDemo
-A simple of how to do drag-and-drop in gtk+ lists.
+A simple demo in Swift of how to do drag-and-drop in gtk+ lists.
 
 This is a demo, re-implemented in Swift, that follows the `C` version of [Drag-and-drop in lists on the Gtk+ Development Blog](https://blog.gtk.org/2017/04/23/drag-and-drop-in-lists/).  Be sure to check out the blog post, as it gives vital information on how drag-and-drop works (and can be implemented for lists) in GTK+.
 
