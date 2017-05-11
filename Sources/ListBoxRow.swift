@@ -54,7 +54,7 @@ extension ListBoxRow {
             }
         }
         row.dragDestSet(flags: .all, action: .move, targets: entries)
-        hdl.onDragDataReceived { (widget, context, x, y, selectionData, info, time) in
+        row.onDragDataReceived { (widget, context, x, y, selectionData, info, time) in
             let target = ListBoxRowRef(cPointer: widget.ptr)
             let pos = target.index
             let row = WidgetRef(gtk_selection_data_get_data(selectionData).withMemoryRebound(to: UnsafeMutablePointer<GtkWidget>.self, capacity: 1, { $0 }).pointee)
