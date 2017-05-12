@@ -7,6 +7,7 @@ This is a demo, re-implemented in Swift, that follows the `C` version of [Drag-a
 Make sure you have all the prerequisites installed (see below).  After that, you can simply clone this repository and build the command line executable (be patient, this will download all the required dependencies and take a while to compile) using
 
 	git clone https://github.com/rhx/SwiftGtkListBoxDNDDemo.git
+	cd SwiftGtkListBoxDNDDemo
 	./build.sh
 	
 After that, you can run the program using
