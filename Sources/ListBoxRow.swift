@@ -6,6 +6,7 @@
 //
 import CGLib
 import CGtk
+import CCairo
 import Cairo
 import Gdk
 import Gtk
@@ -31,7 +32,8 @@ extension ListBoxRow {
             let context = $1
             let w = Int(row.allocatedWidth)
             let h = Int(row.allocatedHeight)
-            let s = imageSurfaceCreate(format: CAIRO_FORMAT_ARGB32, width: w, height: h)
+            let argb32 = CCairo.cairo_format_t.argb32
+            let s = imageSurfaceCreate(format: argb32, width: w, height: h)
             let cr = Context(surface: s)
             let styleContext = row.styleContextRef
             let dragIcon = "drag-icon"
