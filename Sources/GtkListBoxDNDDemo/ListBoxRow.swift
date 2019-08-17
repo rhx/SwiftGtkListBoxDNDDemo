@@ -74,4 +74,5 @@ extension ListBoxRow {
         return row
     }
 }
-var entries = [GtkTargetEntry(target: "GTK_LIST_BOX_ROW")]
+
+var entries = [GtkTargetEntry(target: strdup("GTK_LIST_BOX_ROW"), flags: TargetFlags.same_app.rawValue, info: 0)]
