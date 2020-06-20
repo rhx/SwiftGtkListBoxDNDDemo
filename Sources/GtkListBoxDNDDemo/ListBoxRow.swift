@@ -68,7 +68,7 @@ extension ListBoxRow {
             let parent = ContainerRef(cPointer: source.parent)
             parent.remove(widget: source)
             let listBox = ListBoxRef(cPointer: target.parent)
-            listBox.insert(child: source, position: pos)
+            listBox.insert(child: source, position: CInt(pos))
             source.unref()
         }
         return row

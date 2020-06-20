@@ -31,16 +31,16 @@ After that, select the executable target (not the Bundle/Framework target with t
 
 ### Swift
 
-Building should work with at least Swift 4 (Swift 5 should work as well). You can download Swift from https://swift.org/download/ -- if you are using macOS, make sure you have the command line tools installed as well (install them using `xcode-select --install`).  Test that your compiler works using `swift --version`, which should give you something like
+Building should work with at least Swift 5.x. You can download Swift from https://swift.org/download/ -- if you are using macOS, make sure you have the command line tools installed as well (install them using `xcode-select --install`).  Test that your compiler works using `swift --version`, which should give you something like
 
 	$ swift --version
-	Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
-	Target: x86_64-apple-darwin19.4.0
+	Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)
+      Target: x86_64-apple-darwin19.6.0
 
 on macOS, or on Linux you should get something like:
 
 	$ swift --version
-	Swift version 5.1.5 (swift-5.1.5-RELEASE)
+	Swift version 5.2.4 (swift-5.2.4-RELEASE)
 	Target: x86_64-unknown-linux-gnu
 
 ### Gtk 3.18 or higher
