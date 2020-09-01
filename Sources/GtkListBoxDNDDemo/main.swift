@@ -29,10 +29,10 @@ sw.setPolicy(hscrollbarPolicy: .never, vscrollbarPolicy: .always)
 window.add(widget: sw)
 
 var list = ListBox()
-list.selectionMode = .none_
+list.selectionMode = .none
 sw.add(widget: list)
 
-for i: CInt in 0..<20 {
+for i in 0..<20 {
     let row = ListBoxRow.row("Row \(i)")
     list.insert(child: row, position: i)
 }

@@ -60,15 +60,15 @@ extension ListBoxRow {
             let target = ListBoxRowRef(cPointer: widget.widget_ptr)
             let pos = target.index
             let row = WidgetRef(gtk_selection_data_get_data(selectionData).withMemoryRebound(to: UnsafeMutablePointer<GtkWidget>.self, capacity: 1, { $0 }).pointee)
-            let source = ListBoxRowRef(cPointer: row.getAncestor(widgetType: gtk_list_box_row_get_type()))
+            let src = row.getAncestor(widgetType: gtk_list_box_row_get_type())
 
-            guard source.ptr != target.ptr else { return }
+            guard let source = src, source.ptr != target.ptr else { return }
 
-            _ = source.ref()
-            let parent = ContainerRef(cPointer: source.parent)
+            source.ref()
+            guard let parent = ContainerRef(gpointer: source.parent?.ptr) else { return }
             parent.remove(widget: source)
-            let listBox = ListBoxRef(cPointer: target.parent)
-            listBox.insert(child: source, position: CInt(pos))
+            guard let listBox = ListBoxRef(gpointer: target.parent?.ptr) else { return }
+            listBox.insert(child: source, position: pos)
             source.unref()
         }
         return row
