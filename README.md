@@ -49,9 +49,21 @@ After that, select the executable target (not the Bundle/Framework target with t
 
 ## What is new?
 
-### Support for gtk 4.x
+Version 12 of gir2swift pulls in [PR#10](https://github.com/rhx/gir2swift/pull/10), addressing several issues:
 
-There now is a `gtk4` branch supporting the latest version of gtk.
+- Improvements to the Build experience and LSP [rhx/SwiftGtk#34](https://github.com/rhx/SwiftGtk/issues/34)
+- Fix issues with LLDB [rhx/SwiftGtk#39](https://github.com/rhx/SwiftGtk/issues/39)
+- **Controversial:** Implicitly marks all declarations named "priv" as if they had attribute `private=1`
+- Prevents all "Private" records from generating unless generated in their instance record
+  - `-a` option generates all records
+- Introduces CI
+- For Class metadata types no longer generates class wrappers. Ref structs now contain static method which returnes the GType of the class and instance of the Class metatype wrapped in the Ref struct.
+- Adds final class GWeak<T> where T could be any Ref struct of a type which supports ARC. This class is a property wrapper which contains weak reference to any instance of T. This is especially beneficial for capture lists.
+- Adds support for weak observation.
+- Constructors and factories of GObjectInitiallyUnowned classes now consume floating reference upon initialisation as advised by [the GObject documentation](https://developer.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html)
+
+Partially implemented:
+- Typed signal generation. Issues shown in [rhx/SwiftGtk#35](https://github.com/rhx/SwiftGtk/issues/35) hat remain to be addressed are listed here: [mikolasstuchlik/gir2swift#2](https://github.com/mikolasstuchlik/gir2swift/pull/2).
 
 ### Other notable changes
 
