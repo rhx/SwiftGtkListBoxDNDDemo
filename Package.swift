@@ -1,11 +1,12 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.2
 
 import PackageDescription
 
 let package = Package(
     name: "GtkListBoxDNDDemo",
     dependencies: [
-        .package(url: "https://github.com/rhx/SwiftGtk.git", .branch("master")),
+        .package(name: "gir2swift", url: "https://github.com/rhx/gir2swift.git", .branch("main")),
+        .package(name: "Gtk", url: "https://github.com/rhx/SwiftGtk.git", .branch("gtk3")),
     ],
     targets: [
         .target(name: "GtkListBoxDNDDemo", dependencies: ["Gtk"]),
