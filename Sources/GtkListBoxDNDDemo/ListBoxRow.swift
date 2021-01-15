@@ -51,7 +51,7 @@ extension ListBoxRow {
             var w = widget.ptr
             withUnsafePointer(to: &w) {
                 $0.withMemoryRebound(to: guchar.self, capacity: 1) {
-                    gtk_selection_data_set(selectionData, gdk_atom_intern_static_string("GTK_LIST_BOX_ROW"), 32, $0, gint(MemoryLayout<gpointer>.size))
+                    selectionData.set(type: gdk_atom_intern_static_string("GTK_LIST_BOX_ROW"), format: 32, data: $0, length: MemoryLayout<gpointer>.size)
                 }
             }
         }
@@ -59,7 +59,7 @@ extension ListBoxRow {
         row.onDragDataReceived { (widget, context, x, y, selectionData, info, time) in
             let target = ListBoxRowRef(cPointer: widget.widget_ptr)
             let pos = target.index
-            let row = WidgetRef(gtk_selection_data_get_data(selectionData).withMemoryRebound(to: UnsafeMutablePointer<GtkWidget>.self, capacity: 1, { $0 }).pointee)
+            let row = WidgetRef(gtk_selection_data_get_data(selectionData.selection_data_ptr).withMemoryRebound(to: UnsafeMutablePointer<GtkWidget>.self, capacity: 1, { $0 }).pointee)
             let src = row.getAncestor(widgetType: gtk_list_box_row_get_type())
 
             guard let source = src, source.ptr != target.ptr else { return }
