@@ -6,11 +6,9 @@
 # On macOS (Darwin), this script uses gtk-mac-bundler to create an app
 #
 . ./config.sh
-export PACKAGES=.build/checkouts
-[ -e $PACKAGES ] || export PACKAGES=Packages
-gtk=`echo $PACKAGES/*Gtk*/Sources/Gtk/Gtk-3.0.swift`
+gtk=`echo $BUILD_DIR/checkouts/SwiftGtk*/Sources/Gtk/Gtk-?.0.swift`
 [ -e $gtk ] || ./generate-wrapper.sh
-swift build $CCFLAGS $LINKFLAGS "$@"
+swift build --build-path "$BUILD_DIR" $CCFLAGS $LINKFLAGS "$@"
 if [ `uname` = "Darwin" ]; then
 	. ./app-bundle.sh
 fi
