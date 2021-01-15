@@ -1,20 +1,41 @@
 # SwiftGtkListBoxDNDDemo
+
 A simple demo in Swift of how to do drag-and-drop in gtk+ lists.
+
+![macOS 11 build](https://github.com/rhx/SwiftGtkListBoxDNDDemo/workflows/macOS%2011/badge.svg)
+![macOS 10.15 build](https://github.com/rhx/SwiftGtkListBoxDNDDemo/workflows/macOS%2010.15/badge.svg)
+![macOS gtk4 build](https://github.com/rhx/SwiftGtkListBoxDNDDemo/workflows/macOS%20gtk4/badge.svg)
+![Ubuntu 20.04 build](https://github.com/rhx/SwiftGtkListBoxDNDDemo/workflows/Ubuntu%2020.04/badge.svg)
+![Ubuntu 18.04 build](https://github.com/rhx/SwiftGtkListBoxDNDDemo/workflows/Ubuntu%2018.04/badge.svg)
 
 This is a demo, re-implemented in Swift, that follows the `C` version of [Drag-and-drop in lists on the Gtk+ Development Blog](https://blog.gtk.org/2017/04/23/drag-and-drop-in-lists/).  Be sure to check out the blog post, as it gives vital information on how drag-and-drop works (and can be implemented for lists) in GTK+.
 
 ## Building
+
 Make sure you have all the prerequisites installed (see below).  After that, you can simply clone this repository and build the command line executable (be patient, this will download all the required dependencies and take a while to compile) using
 
 	git clone https://github.com/rhx/SwiftGtkListBoxDNDDemo.git
 	cd SwiftGtkListBoxDNDDemo
-	./build.sh
-	
-After that, you can run the program using
+    ./run-gir2swift.sh
+	swift build
 
-	.build/debug/GtkListBoxDNDDemo
+You can run the program using
 
-To exit the program, click the close button or press Control-C in the Terminal window.
+	swift run
+
+A simple, empty 'Hello World' window should appear.  To exit the program, click the close button or press Control-C in the Terminal window.
+
+### macOS
+
+Please note that on macOS, due to a bug currently in the Swift Package Manager,
+you need to pass in the build flags manually, i.e. instead of `swift build` and `swift run` you can run
+
+    swift build `./run-gir2swift.sh flags -noUpdate`
+    swift run   `./run-gir2swift.sh flags -noUpdate`
+
+Under macOS, you can also create an Application bundle that you can copy to the `/Applications` folder by using
+
+    ./app-bundle.sh
 
 ### Xcode
 
@@ -22,11 +43,17 @@ On macOS, you can build the project using Xcode instead.  To do this, you need t
 
 
 	./xcodegen.sh
-	open GtkListBoxDNDDemo.xcodeproj
+	open HelloGtk.xcodeproj
 
 After that, select the executable target (not the Bundle/Framework target with the same name as the executable) and use the (usual) Build and Run buttons to build/run your project.
 
 ## What is new?
+
+### Support for gtk 4.x
+
+There now is a `gtk4` branch supporting the latest version of gtk.
+
+### Other notable changes
 
 Version 11 introduces a new type system into `gir2swift`,
 to ensure it has a representation of the underlying types.
@@ -35,8 +62,6 @@ As a consequence, accessors can accept and return idiomatic Swift rather than
 underlying types or pointers.
 This means that a lot of the changes will be source-breaking for code that
 was compiled against libraries built with earlier versions of `gir2swift`.
-
-### Notable changes
 
  * Requires Swift 5.2 or later
  * Wrapper code is now `@inlinable` to enable the compiler to optimise away most of the wrappers
@@ -53,18 +78,18 @@ was compiled against libraries built with earlier versions of `gir2swift`.
 Building should work with at least Swift 5.2 (Swift 5.3+ should work). You can download Swift from https://swift.org/download/ -- if you are using macOS, make sure you have the command line tools installed as well (install them using `xcode-select --install`).  Test that your compiler works using `swift --version`, which should give you something like
 
 	$ swift --version
-	Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)
-      Target: x86_64-apple-darwin19.6.0
+	Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+    Target: x86_64-apple-darwin20.3.0
 
 on macOS, or on Linux you should get something like:
 
 	$ swift --version
-	Swift version 5.2.5 (swift-5.2.5-RELEASE)
+	Swift version 5.3.2 (swift-5.3.2-RELEASE)
 	Target: x86_64-unknown-linux-gnu
 
 ### Gtk 3.18 or higher
 
-The Swift wrappers have been tested with glib-2.46, 2.48, 2.52, 2.56, 2.58, 2.60, 2.62, and 2.64, and gdk/gtk 3.18, 3.20, 3.22, and 3.24.  They should work with higher versions, but YMMV.  Also make sure you have `gobject-introspection` and its `.gir` files installed.
+The Swift wrappers have been tested with glib-2.46, 2.48, 2.52, 2.56, 2.58, 2.60, 2.62, 2.64 and 2.66, and gdk/gtk 3.18, 3.20, 3.22, and 3.24.  They should work with higher versions, but YMMV.  Also make sure you have `gobject-introspection` and its `.gir` files installed.
 
 #### Linux
 
@@ -112,3 +137,11 @@ this probably means that your Swift toolchain is too old.  Make sure the latest 
 	sudo xcode-select -s /Applications/Xcode.app
 	xcode-select --install
 
+### Known Issues
+
+ * When building, a lot of warnings appear.  This is largely an issue with automatic `RawRepresentable` conformance in the Swift Standard library.  As a workaround, you can turn this off by passing the `-Xswiftc -suppress-warnings` parameter when building.
+ 
+ * The current build system does not support directory paths with spaces (e.g. the `My Drive` directory used by Google Drive File Stream).
+ * BUILD_DIR is not supported in the current build system.
+ 
+As a workaround, you can use the old build scripts, e.g. `./build.sh` (instead of `run-gir2swift.sh` and `swift build`) to build a package.
