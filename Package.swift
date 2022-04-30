@@ -8,7 +8,7 @@ let package = Package(
         .package(url: "https://github.com/rhx/SwiftGtk.git", branch: "monorepo"),
     ],
     targets: [
-        .target(name: "GtkListBoxDNDDemo", dependencies: [
+        .executableTarget(name: "GtkListBoxDNDDemo", dependencies: [
             .product(name: "Gtk", package: "SwiftGtk"),
         ]),
     ]
