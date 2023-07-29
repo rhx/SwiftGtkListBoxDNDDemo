@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "GtkListBoxDNDDemo",
     dependencies: [
-        .package(url: "https://github.com/rhx/SwiftGtk.git", branch: "monorepo"),
+        .package(url: "https://github.com/rhx/SwiftGtk.git", branch: "monorepo-development"),
     ],
     targets: [
         .executableTarget(name: "GtkListBoxDNDDemo", dependencies: [
